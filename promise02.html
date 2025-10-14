@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      //js는 매개변수에다가 함수를 넣을 수 있다.
+      /*
+      function increaseAndPrint(num, callback) {
+        setTimeout(() => {
+          const increased = num + 1;
+          console.log(increased);
+          callback(increased);
+        }, 1000)
+      }
+      //5번 하고 싶다. callback hell 콜백 지옥이라고 한다.
+      increaseAndPrint(0, (num) => {
+        increaseAndPrint(num, (num) => {
+          increaseAndPrint(num, (num) => {
+            increaseAndPrint(num, function (num) {
+              increaseAndPrint(num, function (num) {
+                console.log("end");
+              })
+            })
+          })
+        })
+      });
+      */
+      //promise 사용
+      function increaseAndPrint(num) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            const increased = num + 1;
+            console.log(increased);
+            resolve(increased);
+          }, 1000)
+        })
+      }
+      increaseAndPrint(0)
+        .then((num) => increaseAndPrint(num))
+        .then((num) => increaseAndPrint(num))
+        .then((num) => increaseAndPrint(num))
+        .then((num) => increaseAndPrint(num))
+        .then(() => {
+          console.log("end");
+        })
+      function myPromise(isPromise) {
+        return new Promise((resolve, reject) => {
+          if (isPromise) {
+            resolve("성공"); //fullfield
+          } else {
+            reject("실패");
+          }
+        })
+      }
+      //pending == fullfield   
+      //pending == reject  
+      myPromise(false)
+        .then(result => {
+          console.log(result);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      console.log(myPromise);
+      //내가 찾는 유저가 있으면 ok
+      //ok면 로그인상태인지 아닌지 따져보고
+      //값을 출력해라....
+      //async/await
+      
+    </script>
+  </body>
+
+</html>

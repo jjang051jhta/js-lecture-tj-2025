@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      #list {
+        display: grid;
+        grid-template-columns: repeat(20, 1fr);
+        gap: 0;
+        max-width: 1600px;
+        margin: 100px auto;
+      }
+
+      li {
+        list-style: none;
+      }
+
+      li img {
+        width: 80px;
+        vertical-align: top;
+
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div>
+      <ul id="list">
+
+      </ul>
+    </div>
+    <script>
+      //const params = new URLSearchParams();
+      const list = document.querySelector("#list");
+      fetch("https://dapi.kakao.com/v2/search/image?query=전지현", {
+        headers: {
+          Authorization: "KakaoAK b29e829b65ad43e9c98f13e27483d9a7"
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          console.log(data.documents)
+          const { documents, meta } = data;
+          console.log(documents);
+          console.log(meta);
+          let parsingStr = "";
+          documents.forEach((item, idx) => {
+            //console.log(item);
+            const { thumbnail_url } = item;
+            parsingStr += `<li><img src="${thumbnail_url}"></li>`
+          })
+          list.innerHTML = parsingStr;
+        });
+      //다하신분은 aysnc await구조로 바꾸어 보기... 기억나면 css 만들어 보기...
+    </script>
+  </body>
+
+</html>

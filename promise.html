@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      let num = 10;
+      const pi = 3.14;
+      console.log(10 + num);
+      console.log(10 * num);
+      console.log(10 / 5);
+      console.log(10 % 3);
+      //자바의 List와 비슷하다.
+      const animals = ["rabbit", "lion", "bear", 10, true];
+      console.log(animals[0]);
+      console.log(animals[3]);
+      console.log(animals[4]);
+      const person = {
+        name: "장성호",
+        age: 20
+      }
+      console.log(person);
+      for (let i = 0; i < 10; i++) {
+        console.log(i);
+      }
+      //구조분해 할당
+      const fruits = ["apple", "peach", "plum"];
+      let [f01, f02, f03] = fruits;
+      console.log(f01);
+      console.log(f02);
+      console.log(f03);
+      const { name, age } = person;
+      console.log(name);
+      console.log(age);
+      // spread 연산자 , rest 연산자
+      const copyFruits = fruits;  //
+      copyFruits.push("orange");
+      console.log(fruits);
+      const copyFruits02 = [...fruits];
+      copyFruits02.push("mango");
+      console.log(fruits);
+      console.log(copyFruits02);
+
+
+
+      //promise 약속  이행이되거나 거절되거나... 비동기 문법에 많이 쓰인다.
+      function increaseAndPrint(num, callback) {
+        //setTimeout
+
+      }
+      //js 이벤트 루프 (비동기 함수는 일단 뒤로 뺴둔다. 일반 함수들을 먼저 실행하고 stack이 비워지면 그때 불러와 실행 시킨다.)
+      setTimeout(function () {
+        console.log("나는 1초뒤에 한번 실행하고 끝납니다.")
+      }, 1000);
+      //js에 비동기 함수중 대표적인게 setTimeout,fetch() 등등이 있다.
+
+    </script>
+  </body>
+
+</html>
