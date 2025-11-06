@@ -8,6 +8,15 @@
   </head>
 
   <body>
+    <div class="container">
+      <h1>LOTTO</h1>
+      <div class="toolbar">
+        <button id="btn-lotto">로또번호 뽑기</button>
+      </div>
+      <div class="row">
+        <div id="current" class="balls"></div>
+      </div>
+    </div>
     <script>
       const getLottoNums = function () {
         const nums = new Array(45)
@@ -23,11 +32,20 @@
         //console.log(nums.slice(0, 6).sort((a, b) => a - b));
         return nums.slice(0, 6).sort((a, b) => a - b);
       }
-      console.log(getLottoNums());
-      console.log(getLottoNums());
-      console.log(getLottoNums());
-      console.log(getLottoNums());
-      console.log(getLottoNums());
+      const renderBalls = () => {
+        current.innerHTML = "";
+        getLottoNums().forEach((item, idx) => {
+          const el = document.createElement("div");
+          el.className = "ball";
+          el.textContent = item;
+          current.appendChild(el);
+        })
+      }
+      const current = document.querySelector("#current");
+      const btnLotto = document.querySelector("#btn-lotto");
+      btnLotto.addEventListener("click", () => {
+        renderBalls();
+      })
     </script>
   </body>
 
