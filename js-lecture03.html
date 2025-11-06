@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      const array = ["장동건", 1, "일", 2, { name: "장성호", age: 30 }];
+      console.log(array[0])
+      console.log(array[1])
+      console.log(array[2])
+      console.log(array[3].name)
+      console.log(array[3].age)
+      console.log(array.length);
+      array.push("foo");  //push / pop
+      array.push("bar");
+      array.unshift("장동건");
+      console.log(array[0])
+      console.log(array[1])
+      console.log(array[2])
+      console.log(array[3].name)
+      console.log(array[3].age)
+      console.log(array.length);
+      console.log(array.pop()) //뒤에서 뺴내기
+      console.log(array.shift()) //앞에서 빼내기
+      const yoil = ["월", "화", "수", "목", "금", "토", "일"];
+      const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+      yoil.forEach((item, idx) => {
+        console.log(idx, "==", item);
+      })
+      const evenNums = nums.filter((item) => item % 2 == 0);
+      const plusTenNums = nums.map((item) => item + 10);
+      const includeFiveNums = nums.includes(5);
+
+      console.log(evenNums);
+      console.log(plusTenNums);
+      console.log(includeFiveNums);
+      console.log(nums);
+      const total = nums.reduce((acc, curr, idx, nums) => {
+        console.log("acc===", acc, "===curr===", curr);
+        return acc + curr;
+      }, 0)
+      console.log(total);
+      nums02 = [4, 5, 6, 10, 9, 11, 13, 2];
+      //nums02.sort(); //원본을 망가뜨린다.
+      console.log(nums02); //js정렬은 문자 기준... 
+      let count = 0;
+      //sort()함수는 원본 배열을 바꾼다. 
+      //toSorted()는 원본을 그대로둔다.
+      const sortedNums = nums02.toSorted((a, b) => {
+        //count++;
+        return b - a;
+      });
+      console.log(sortedNums);
+      console.log(nums02);
+      console.log("count===", count);
+      // 리턴이 양수이면 순서를 바꾼다. 
+      // 리턴이 음수이면 그대로 둔다.
+      // 0일떄도 그대로 둔다.
+      // 100*log2(100)  평균횟수
+      //배열 섞기
+      const nums03 = Array.from({ length: 45 }, () => 0);
+      console.log(nums03);
+      const nums04 = new Array(45)
+        .fill(0)
+        .map((item, idx) => {
+          return idx + 1;
+        });
+      console.log(nums04);
+      //shuffle  Fisher-Yates 기법
+      for (let i = nums04.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [nums04[i], nums04[j]] = [nums04[j], nums04[i]];
+      }
+      console.log(nums04.slice(0, 6).sort((a, b) => a - b));
+      console.log(nums04);
+      let a = 10;
+      let b = 5;
+      let c = a;
+      a = b; //a = 5
+      b = c; //b = 5
+      [a, b] = [b, a];
+
+      const temp = [1, 2, 3];
+      const [aa, bb, cc] = [1, 2, 3];
+      console.log(aa);
+      console.log(bb);
+      console.log(cc);
+    </script>
+  </body>
+
+</html>

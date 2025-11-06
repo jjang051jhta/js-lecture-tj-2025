@@ -59,6 +59,7 @@
             const { thumbnail_url } = item;
             parsingStr += `<li><img src="${thumbnail_url}"></li>`
           })
+          console.log()
           list.innerHTML = parsingStr;
         });
       //다하신분은 aysnc await구조로 바꾸어 보기... 기억나면 css 만들어 보기...

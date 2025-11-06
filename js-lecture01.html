@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <p>hello document 태그로 글을 씀</p>
+    <script>
+      //  .java ---> .class  (번역)
+      //  .html ---> 브라우져(해석기) ---> js의 결과를 보여준다.  (동시통역)
+      //프로그래밍 언어는 컴파일 또는 인터프리팅 과정을 거친다.
+      //console.log("hello js")
+      const num01 = 10;
+      let num02 = 10;
+      num02 = 20;
+      console.log(num02);
+      num02 = num02 + 10;
+      console.log(num02);
+      document.write("hello document");
+      const myPtag = document.querySelector("p");
+      console.log(myPtag.textContent);
+      myPtag.textContent += "hello textcontent로 글을 씁니다."
+
+      //함수선언문  hoist
+      function myFunc() {
+        console.log("함수를 정의 합니다.");
+      }
+      //함수표현식
+      const myFunc02 = function () {
+        console.log("익명함수를 변수에 대입합니다.");
+      }
+      //js에서 함수는 일급객체로 취급된다.
+      //일급객체란 변수에 저장가능 , 함수에 인자로 전달 가능 , 함수의 리턴값으로 가능
+      myFunc();
+      myFunc02();
+      function greeting(fn) {
+        console.log("함수의 매개변수로 함수를 넣을 수 있다.")
+        fn();
+      }
+      greeting(myFunc);
+      function outer() {
+        return function inner() {
+          console.log("나는 함수의 반환값으로 만들어진 함수");
+        }
+      }
+      //outer();
+      const returned = outer();
+      returned();
+
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+  <head th:replace="~{fragments/head::head(title=${boardDto.title})}"></head>
+
+  <body>
+    <header th:replace="~{fragments/header}"></header>
+
+    <div class="card w-full max-w-2xl shadow-2xl bg-base-100 mx-auto mt-10">
+      <div class="card-body">
+        <h1 class="card-title text-2xl mb-4">게시글 상세</h1>
+
+        <!-- 제목 -->
+        <div class="form-control mb-2">
+          <label class="label font-bold">제목</label>
+          <span class="px-3 py-2 rounded bg-base-200" th:text="${boardDto.title}"></span>
+        </div>
+
+        <!-- 글쓴이 -->
+        <div class="form-control mb-2">
+          <label class="label font-bold">글쓴이</label>
+          <span class="px-3 py-2 rounded bg-base-200" th:text="${boardDto.writer}"></span>
+        </div>
+
+        <!-- 내용 (비밀글 처리 포함) -->
+        <div class="form-control mb-2">
+          <label class="label font-bold">내용</label>
+          <span class="px-3 py-2 rounded bg-base-200 whitespace-pre-line"
+            th:text="${(boardDto.secretValue != 'Y' or boardDto.writer == session.loggedMember.userID) ? boardDto.content : '비밀글입니다.'}"></span>
+        </div>
+
+        <!-- 조회수 -->
+        <div class="form-control mb-2">
+          <label class="label font-bold">조회수</label>
+          <span class="px-3 py-2 rounded bg-base-200" th:text="${boardDto.hit}"></span>
+        </div>
+
+        <!-- 날짜 -->
+        <div class="form-control mb-4">
+          <label class="label font-bold">날짜</label>
+          <span class="px-3 py-2 rounded bg-base-200" th:text="${boardDto.regdate}"></span>
+        </div>
+
+
+
+        <!-- 이전글 / 다음글 -->
+        <div class="mt-4 space-y-2 text-sm text-gray-600">
+          <!-- 이전글 -->
+          <div th:if="${prevBoardDto != null}">
+            <a th:href="@{/board/{id}/detail(id=${prevBoardDto.id})}" class="link link-hover">
+              이전글 : <span th:text="${prevBoardDto.title}">이전 글 제목</span>
+            </a>
+          </div>
+          <div th:unless="${prevBoardDto != null}">
+            이전 글이 없습니다.
+          </div>
+
+          <!-- 다음글 -->
+          <div th:if="${nextBoardDto != null}">
+            <a th:href="@{/board/{id}/detail(id=${nextBoardDto.id})}" class="link link-hover">
+              다음글 : <span th:text="${nextBoardDto.title}">다음 글 제목</span>
+            </a>
+          </div>
+          <div th:unless="${nextBoardDto != null}">
+            다음 글이 없습니다.
+          </div>
+        </div>
+        <!-- 하단 버튼 영역 -->
+        <div class="mt-6 flex justify-between items-center">
+          <!-- 왼쪽: 수정/삭제 버튼 -->
+          <a th:href="@{/board/{id}/edit(id=${boardDto.id})}" th:if="${session.loggedMember.userID == boardDto.userID}"
+            class="btn btn-primary">
+            수정/삭제
+          </a>
+
+          <!-- 오른쪽: 목록으로 버튼 -->
+          <a th:href="@{/board/list}" class="btn btn-outline">
+            목록으로
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div th:replace="~{fragments/footer::footer-sns}"></div>
+
+    <script th:inline="javascript">
+      const btnDelete = document.querySelector("#btn-delete");
+      const password = document.querySelector("#password");
+      const idx = /*[[${boardDto.id}]]*/ 0;
+
+      btnDelete.addEventListener("click", async () => {
+        const sendPassword = password.value;
+        const res = await fetch("/board/delete", {
+          headers: { "Content-Type": "application/json" },
+          method: "post",
+          body: JSON.stringify({ password: sendPassword, id: idx })
+        });
+        const data = await res.json();
+        if (data.success) {
+          location.href = "/board/list?nocache="+Date.now();
+
+        } else {
+          alert("비밀번호를 확인해주세요");
+        }
+      });
+    </script>
+  </body>
+
+</html>

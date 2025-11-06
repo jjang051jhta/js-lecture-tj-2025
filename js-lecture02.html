@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      //클로져
+      function outer() {
+        //자바의 private처럼 동작
+        let count = 0;
+        function inner() {
+          count++;
+          console.log(count);
+        }
+        return inner;
+      }
+      const counter = outer();
+      counter();
+      counter();
+      counter();
+      //함수가 선언될때 변수의 스코프를 기억한다.
+      //함수가 종료 즉 호출된 후에도 참조값으로 남아서 변수에 접근가능하게 하는 기능
+
+      function createCounter() {
+        let count = 0;
+        return {
+          increase() {
+            count++;
+          },
+          get() {
+            return count;
+          }
+        }
+      }
+      const myCounter = createCounter();
+      myCounter.increase();
+      myCounter.increase();
+      const increasedCount = myCounter.get();
+      console.log(increasedCount);
+
+      //================================
+      //렉시컬 스코프  자바스크립트는 함수에서 변수를 참조할때 호출이 아니라 정의된 곳에서 값을 찾는다.
+      let x = 10;
+      function foo() {
+        console.log(x);
+      }
+      function bar() {
+        let x = 20;
+        foo();
+      }
+      bar();
+
+
+
+
+
+
+    </script>
+  </body>
+
+</html>
