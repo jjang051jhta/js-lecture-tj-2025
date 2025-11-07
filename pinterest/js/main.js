@@ -1,4 +1,8 @@
 const itemList = document.querySelector(".itemList");
+const btns = document.querySelectorAll("#filter ul li");
+console.log(btns);
+//유사 배열은 배열처러 보이지만 배열은 아니다.
+// 즉 배열의 여러 메서드들을 전부 사용할 수는 없다.
 async function loadJson() {
   const res = await fetch("../data/typo.json");
   const data = await res.json();
@@ -28,6 +32,19 @@ async function loadJson() {
   });
   imagesLoaded(itemList, () => {
     iso.layout();
+  });
+  console.log("iso===", iso);
+  btns.forEach((item) => {
+    item.addEventListener("click", () => {
+      //console.log("click");
+      console.log(item.dataset.filter);
+      const filterItem = "." + item.dataset.filter;
+      btns.forEach((btn) => {
+        btn.classList.remove("on");
+      });
+      item.classList.add("on");
+      iso.arrange({ filter: filterItem });
+    });
   });
 }
 loadJson();
