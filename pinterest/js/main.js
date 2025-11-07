@@ -16,10 +16,10 @@ async function loadJson() {
                 <img src="../images/${item.img}" alt="" />
               </div>
               <div class="info">
-                <h2>${item.title}</h2>
+                <h2 class="title">${item.title}</h2>
                 <p class="desc">${item.desc}</p>
                 <p class="point">
-                  <span>${item.point}</span>
+                  <span class="num">${item.point}</span>
                 </p>
               </div>
             </a>
@@ -30,12 +30,22 @@ async function loadJson() {
     // options
     itemSelector: ".item",
     layoutMode: "masonry",
+    transitionDuration: "0.5s",
+    getSortData: {
+      title: ".title",
+      point: ".num parseFloat",
+      //category: "[data-category]",
+      // weight: function (itemElem) {
+      //   var weight = itemElem.querySelector(".weight").textContent;
+      //   return parseFloat(weight.replace(/[\(\)]/g, ""));
+      // },
+    },
   });
   imagesLoaded(itemList, () => {
     iso.layout();
   });
   console.log("iso===", iso);
-  menu.innerHTML += '<li class="item www">WWW</li>';
+  menu.innerHTML += '<li class="item www" data-filter="www">WWW</li>';
   //자바스크립트에서 동적으로 하나 더 추가
   // btns.forEach((item) => {
   //   item.addEventListener("click", () => {
@@ -60,7 +70,11 @@ async function loadJson() {
       btn.classList.remove("on");
     });
     item.classList.add("on");
-    iso.arrange({ filter: filterItem });
+    iso.arrange({
+      filter: filterItem,
+      sortBy: "title",
+      sortAscending: false,
+    });
   });
 }
 loadJson();
